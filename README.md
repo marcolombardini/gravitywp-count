@@ -3,11 +3,11 @@ Plugin that adds a shortcode option to count a number field in multiple entries 
 
 If you use a number field in your Gravity Form, you may want to count the total of this number field for multiple entries. With this simple plugin that’s possible.
 
-1. Install the GravityWP Count plugin
+<h2>1. Install the GravityWP Count plugin</h2>
 
 First install the GravityWP Count plugin. Go to your wp-admin Dashboard, click on Plugins and choose for ‘Add New’  and than for ‘Upload Plugin’.
 
-2. Use the shortcode
+<h2>2. Use the shortcode</h2>
 
 If the plugin is successfully installed, you can use the following shortcode anywhere on your WordPress website:
 
