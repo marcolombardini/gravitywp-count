@@ -11,13 +11,13 @@ First install the GravityWP Count plugin. Go to your wp-admin Dashboard, click o
 
 If the plugin is successfully installed, you can use the following shortcode anywhere on your WordPress website:
 
-[gravitywp_count formid="" field=""]
+<b>[gravitywp_count formid="" field=""]</b>
 
 You need to give the shortcode two variables:
 
-formid: this is the ID of the Form you want to make the calculation for. You find it when you go to Forms in your Dashboard and than the first column will show you the ID of the form.
+<b>formid:</b> this is the ID of the Form you want to make the calculation for. You find it when you go to Forms in your Dashboard and than the first column will show you the ID of the form.
 
-field: this is the Field ID of the Number Field you want to count. Open the form and scroll to the Number Field.
+<b>field:</b> this is the Field ID of the Number Field you want to count. Open the form and scroll to the Number Field.
 
 Read more on: http://gravitywp.com/total-count-number-field-multiple-entries-gravity-forms/
 Or follow the Video Tutorial on: https://www.youtube.com/watch?v=v6vr1XKQqHM
