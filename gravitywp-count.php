@@ -4,7 +4,7 @@ Plugin Name: GravityWP - Count
 Plugin URI: http://gravitywp.com/total-count-number-field-multiple-entries-gravity-forms/
 Description: Adds a shortcode option to count a number field in multiple entries. 
 Author: Erik van Beek
-Version: 0.1
+Version: 0.2
 Author URI: http://www.aiwos.com
 License: GPL2
 */
@@ -22,7 +22,7 @@ function gravitywp_count_func ( $atts, $content = null ) {
 	$gwp_count = 0;
 	for ($row = 0; $row < $countentries ; $row++) {
 	    $gwp_count += $entries[$row][$field];
-}	//return $output_string;
+}	
 	return $gwp_count;
  }
  
