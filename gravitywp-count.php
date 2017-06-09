@@ -40,6 +40,7 @@ function gravitywp_count_func( $atts, $content = null ) {
 		'page_size' => '500',
 		'is_starred' => '',
 		'is_read' => '',
+		'is_status' => '',
 		'multiply' => '1',
 		'start_date' => false,
 		'end_date' => false
@@ -74,7 +75,12 @@ function gravitywp_count_func( $atts, $content = null ) {
 		$search_criteria['field_filters'][] = array('key' => 'created_by', 'value' => $created_by);
 	}
 	} 
-	
+		if ( $is_status == "approved" ) {
+	$search_criteria['field_filters'][] = array('key' => 'is_status', 'value' => true);
+	} 	
+		if ( $is_status == "pending" ) {
+	$search_criteria['field_filters'][] = array('key' => 'is_status', 'value' => true);
+	} 
 	if ( $is_starred == "yes" ) {
 	$search_criteria['field_filters'][] = array('key' => 'is_starred', 'value' => true);
 	} 	
@@ -104,34 +110,37 @@ function gravitywp_count_func( $atts, $content = null ) {
 		echo "Oops... your send_date format is not correct: " . $end_date . " (must be Month/Day/Year)<br>Change the start_date in your gravitywp_count shortcode.<br>";
 	}
 	} 
-	
 	$sorting = null;
-	$paging = array( 'offset' => 0, 'page_size' => $page_size );
-	$entries = GFAPI::get_entries($formid, $search_criteria, $sorting, $paging);
-    $countentries = GFAPI::count_entries( $formid, $search_criteria );
-    $countentries_add = $add_number + $countentries;
-	if ( !empty( $number_field ) ) {
-		$gwp_count = $add_number;
-			for ($row = 0; $row < $countentries ; $row++) {
-				$gwp_count += $entries[$row][$number_field];}
-				return number_format($gwp_count * $multiply, $decimals, $dec_point, $thousands_sep);
-	} else {
-		return number_format($countentries_add * $multiply, "0", ".", $thousands_sep);
-		}
+$paging = array( 'offset' => 0, 'page_size' => $page_size );
+$entries = GFAPI::get_entries($formid, $search_criteria, $sorting, $paging);
+$countentries = GFAPI::count_entries( $formid, $search_criteria );
 
-	$sorting = null;
-	$paging = array( 'offset' => 0, 'page_size' => $page_size );
-	$entries = GFAPI::get_entries($formid, $search_criteria, $sorting, $paging);
-    $countentries = GFAPI::count_entries( $formid, $search_criteria );
+if(!$sub_number) {
+    $countentries_add = $add_number + $countentries;
+    if ( !empty( $number_field ) ) {
+        $gwp_count = $add_number;
+            for ($row = 0; $row < $countentries ; $row++) {
+                $gwp_count += $entries[$row][$number_field];}
+                return number_format($gwp_count * $multiply, $decimals, 
+    $dec_point, $thousands_sep);
+    } else {
+        return number_format($countentries_add * $multiply, "0", ".", 
+     $thousands_sep);
+        }
+} else {
     $countentries_sub = $sub_number - $countentries;
-	if ( !empty( $number_field ) ) {
-		$gwp_count = $sub_number;
-			for ($row = 0; $row < $countentries ; $row++) {
-				$gwp_count -= $entries[$row][$number_field];}
-				return number_format($gwp_count * $multiply, $decimals, $dec_point, $thousands_sep);
-	} else {
-		return number_format($countentries_sub * $multiply, "0", ".", $thousands_sep);
-		}
+    if ( !empty( $number_field ) ) {
+        $gwp_count = $sub_number;
+            for ($row = 0; $row < $countentries ; $row++) {
+                $gwp_count -= $entries[$row][$number_field];}
+                return number_format($gwp_count * $multiply, $decimals, 
+    $dec_point, $thousands_sep);
+    } else {
+        return number_format($countentries_sub * $multiply, "0", ".", 
+$thousands_sep);
+        }
+}
+	
 
 }
 
