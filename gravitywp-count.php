@@ -110,7 +110,37 @@ function gravitywp_count_func( $atts, $content = null ) {
 		echo "Oops... your send_date format is not correct: " . $end_date . " (must be Month/Day/Year)<br>Change the start_date in your gravitywp_count shortcode.<br>";
 	}
 	} 
-	$sorting = null;
+	
+	
+		if ( class_exists( 'Gravity_Flow_Bootstrap' ) ) {
+			if ( ! empty( $workflow_step ) ) {
+				if ( strstr( $workflow_step_status, ',' ) ) {
+					$workflow_step_status = explode( ',', $workflow_step_status );
+				}
+
+				if ( is_array( $workflow_step_status ) ) {
+					$search_criteria['field_filters'][] = array(
+						'key' => 'workflow_step_status_' . $workflow_step,
+						'operator' => 'in',
+						'value' => array_map( 'trim', $workflow_step_status )
+					);
+				} else {
+					$search_criteria['field_filters'][] = array(
+						'key' => 'workflow_step_status_' . $workflow_step,
+						'value' => $workflow_step_status
+					);
+				}
+
+				if ( 'false' !== $workflow_step_is_current ) {
+					$search_criteria['field_filters'][] = array(
+						'key' => 'workflow_step',
+						'value' => $workflow_step
+					);
+				}
+			}
+		}
+	
+$sorting = null;
 $paging = array( 'offset' => 0, 'page_size' => $page_size );
 $entries = GFAPI::get_entries($formid, $search_criteria, $sorting, $paging);
 $countentries = GFAPI::count_entries( $formid, $search_criteria );
